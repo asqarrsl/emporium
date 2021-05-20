@@ -1,9 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 export default function SearchBox(props) {
-  const [name, setName] = useState('');
+  const [name, setName] = useState("");
   const submitHandler = (e) => {
     e.preventDefault();
+    props.history.push(`/search/name/${name}`);
+  };
+  const onChangeHandler = (e) => {
+    e.preventDefault();
+    setName(e.target.value);
     props.history.push(`/search/name/${name}`);
   };
   return (
@@ -13,7 +18,7 @@ export default function SearchBox(props) {
           type="text"
           name="q"
           id="q"
-          onChange={(e) => setName(e.target.value)}
+          onChange={(e) => onChangeHandler(e)}
         ></input>
         <button className="primary" type="submit">
           <i className="fa fa-search"></i>
