@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { detailsUser, updateUserProfile } from '../actions/userActions';
+import { detailsUser, updateUserProfile } from '../actions/user';
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
-import { USER_UPDATE_PROFILE_RESET } from '../constants/userConstants';
+import { USER_UPDATE_PROFILE_RESET } from '../constants/user';
 
 export default function ProfileScreen() {
   const [name, setName] = useState('');

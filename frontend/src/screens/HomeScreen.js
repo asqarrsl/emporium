@@ -5,8 +5,8 @@ import Product from '../components/Product';
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
 import { useDispatch, useSelector } from 'react-redux';
-import { listProducts } from '../actions/productActions';
-import { listTopSellers } from '../actions/userActions';
+import { listProducts } from '../actions/product';
+import { listTopSellers } from '../actions/user';
 import { Link } from 'react-router-dom';
 
 export default function HomeScreen() {

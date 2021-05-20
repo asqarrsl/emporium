@@ -5,13 +5,13 @@ import {
   createProduct,
   deleteProduct,
   listProducts,
-} from '../actions/productActions';
+} from '../actions/product';
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
 import {
   PRODUCT_CREATE_RESET,
   PRODUCT_DELETE_RESET,
-} from '../constants/productConstants';
+} from '../constants/product';
 
 export default function ProductListScreen(props) {
   const { pageNumber = 1 } = useParams();

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Chart from 'react-google-charts';
-import { summaryOrder } from '../actions/orderActions';
+import { summaryOrder } from '../actions/order';
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
 

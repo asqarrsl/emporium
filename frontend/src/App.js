@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { BrowserRouter, Link, Route } from "react-router-dom";
-import { signout } from "./actions/userActions";
+import { signout } from "./actions/user";
 import AdminRoute from "./components/AdminRoute";
 import PrivateRoute from "./components/PrivateRoute";
 import CartScreen from "./screens/CartScreen";
@@ -24,7 +24,7 @@ import SellerRoute from "./components/SellerRoute";
 import SellerScreen from "./screens/SellerScreen";
 import SearchBox from "./components/SearchBox";
 import SearchScreen from "./screens/SearchScreen";
-import { listProductCategories } from "./actions/productActions";
+import { listProductCategories } from "./actions/product";
 import LoadingBox from "./components/LoadingBox";
 import MessageBox from "./components/MessageBox";
 import DashboardScreen from "./screens/DashboardScreen";

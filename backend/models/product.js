@@ -1,4 +1,6 @@
 import mongoose from 'mongoose';
+
+//review Schema
 const reviewSchema = new mongoose.Schema(
   {
     name: { type: String, required: true },
@@ -9,6 +11,8 @@ const reviewSchema = new mongoose.Schema(
     timestamps: true,
   }
 );
+
+//review Product Schema
 const productSchema = new mongoose.Schema(
   {
     name: { type: String, required: true, unique: true },
@@ -27,6 +31,8 @@ const productSchema = new mongoose.Schema(
     timestamps: true,
   }
 );
+
+
 const Product = mongoose.model('Product', productSchema);
 
 export default Product;
