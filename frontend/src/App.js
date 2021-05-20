@@ -1,36 +1,33 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { BrowserRouter, Link, Route } from 'react-router-dom';
-import { signout } from './actions/userActions';
-import AdminRoute from './components/AdminRoute';
-import PrivateRoute from './components/PrivateRoute';
-import CartScreen from './screens/CartScreen';
-import HomeScreen from './screens/HomeScreen';
-import OrderHistoryScreen from './screens/OrderHistoryScreen';
-import OrderScreen from './screens/OrderScreen';
-import PaymentMethodScreen from './screens/PaymentMethodScreen';
-import PlaceOrderScreen from './screens/PlaceOrderScreen';
-import ProductListScreen from './screens/ProductListScreen';
-import ProductScreen from './screens/ProductScreen';
-import ProfileScreen from './screens/ProfileScreen';
-import RegisterScreen from './screens/RegisterScreen';
-import ShippingAddressScreen from './screens/ShippingAddressScreen';
-import SigninScreen from './screens/SigninScreen';
-import ProductEditScreen from './screens/ProductEditScreen';
-import OrderListScreen from './screens/OrderListScreen';
-import UserListScreen from './screens/UserListScreen';
-import UserEditScreen from './screens/UserEditScreen';
-import SellerRoute from './components/SellerRoute';
-import SellerScreen from './screens/SellerScreen';
-import SearchBox from './components/SearchBox';
-import SearchScreen from './screens/SearchScreen';
-import { listProductCategories } from './actions/productActions';
-import LoadingBox from './components/LoadingBox';
-import MessageBox from './components/MessageBox';
-import MapScreen from './screens/MapScreen';
-import DashboardScreen from './screens/DashboardScreen';
-import SupportScreen from './screens/SupportScreen';
-import ChatBox from './components/ChatBox';
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { BrowserRouter, Link, Route } from "react-router-dom";
+import { signout } from "./actions/userActions";
+import AdminRoute from "./components/AdminRoute";
+import PrivateRoute from "./components/PrivateRoute";
+import CartScreen from "./screens/CartScreen";
+import HomeScreen from "./screens/HomeScreen";
+import OrderHistoryScreen from "./screens/OrderHistoryScreen";
+import OrderScreen from "./screens/OrderScreen";
+import PaymentMethodScreen from "./screens/PaymentMethodScreen";
+import PlaceOrderScreen from "./screens/PlaceOrderScreen";
+import ProductListScreen from "./screens/ProductListScreen";
+import ProductScreen from "./screens/ProductScreen";
+import ProfileScreen from "./screens/ProfileScreen";
+import RegisterScreen from "./screens/RegisterScreen";
+import ShippingAddressScreen from "./screens/ShippingAddressScreen";
+import SigninScreen from "./screens/SigninScreen";
+import ProductEditScreen from "./screens/ProductEditScreen";
+import OrderListScreen from "./screens/OrderListScreen";
+import UserListScreen from "./screens/UserListScreen";
+import UserEditScreen from "./screens/UserEditScreen";
+import SellerRoute from "./components/SellerRoute";
+import SellerScreen from "./screens/SellerScreen";
+import SearchBox from "./components/SearchBox";
+import SearchScreen from "./screens/SearchScreen";
+import { listProductCategories } from "./actions/productActions";
+import LoadingBox from "./components/LoadingBox";
+import MessageBox from "./components/MessageBox";
+import DashboardScreen from "./screens/DashboardScreen";
 
 function App() {
   const cart = useSelector((state) => state.cart);
@@ -85,7 +82,7 @@ function App() {
             {userInfo ? (
               <div className="dropdown">
                 <Link to="#">
-                  {userInfo.name} <i className="fa fa-caret-down"></i>{' '}
+                  {userInfo.name} <i className="fa fa-caret-down"></i>{" "}
                 </Link>
                 <ul className="dropdown-content">
                   <li>
@@ -137,15 +134,15 @@ function App() {
                   <li>
                     <Link to="/userlist">Users</Link>
                   </li>
-                  <li>
+                  {/* <li>
                     <Link to="/support">Support</Link>
-                  </li>
+                  </li> */}
                 </ul>
               </div>
             )}
           </div>
         </header>
-        <aside className={sidebarIsOpen ? 'open' : ''}>
+        <aside className={sidebarIsOpen ? "open" : ""}>
           <ul className="categories">
             <li>
               <strong>Categories</strong>
@@ -215,7 +212,7 @@ function App() {
             path="/profile"
             component={ProfileScreen}
           ></PrivateRoute>
-          <PrivateRoute path="/map" component={MapScreen}></PrivateRoute>
+
           <AdminRoute
             path="/productlist"
             component={ProductListScreen}
@@ -241,7 +238,6 @@ function App() {
             path="/dashboard"
             component={DashboardScreen}
           ></AdminRoute>
-          <AdminRoute path="/support" component={SupportScreen}></AdminRoute>
 
           <SellerRoute
             path="/productlist/seller"
@@ -255,8 +251,7 @@ function App() {
           <Route path="/" component={HomeScreen} exact></Route>
         </main>
         <footer className="row center">
-          {userInfo && !userInfo.isAdmin && <ChatBox userInfo={userInfo} />}
-          <div>All right reserved</div>{' '}
+          <div>All right reserved</div>{" "}
         </footer>
       </div>
     </BrowserRouter>
