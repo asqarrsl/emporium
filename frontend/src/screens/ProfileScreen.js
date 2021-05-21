@@ -1,18 +1,21 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { detailsUser, updateUserProfile } from '../actions/user';
-import LoadingBox from '../components/LoadingBox';
-import MessageBox from '../components/MessageBox';
-import { USER_UPDATE_PROFILE_RESET } from '../constants/user';
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { detailsUser, updateUserProfile } from "../actions/user";
+import LoadingBox from "../components/LoadingBox";
+import MessageBox from "../components/MessageBox";
+import { USER_UPDATE_PROFILE_RESET } from "../constants/user";
+import { validateEmail, validateName, validatePassword } from "../validation";
 
 export default function ProfileScreen() {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [sellerName, setSellerName] = useState('');
-  const [sellerLogo, setSellerLogo] = useState('');
-  const [sellerDescription, setSellerDescription] = useState('');
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [sellerName, setSellerName] = useState("");
+  const [sellerLogo, setSellerLogo] = useState("");
+  const [sellerDescription, setSellerDescription] = useState("");
+
+  const [validation, setvalidation] = useState(null);
 
   const userSignin = useSelector((state) => state.userSignin);
   const { userInfo } = userSignin;
@@ -42,9 +45,28 @@ export default function ProfileScreen() {
   const submitHandler = (e) => {
     e.preventDefault();
     // dispatch update profile
-    if (password !== confirmPassword) {
-      alert('Password and Confirm Password Are Not Matched');
+
+    const nameResponse = validateName(name);
+    const sellerNameResponse = validateName(sellerName);
+    const emailResponse = validateEmail(email);
+    const passwordResponse = validatePassword(password);
+
+    if (
+      emailResponse !== "true" ||
+      passwordResponse !== "true" ||
+      nameResponse !== "true" ||
+      sellerNameResponse !== "true" ||
+      password !== confirmPassword
+    ) {
+      if (nameResponse !== "true") return setvalidation(nameResponse);
+      if (emailResponse !== "true") return setvalidation(emailResponse);
+      if (passwordResponse !== "true") return setvalidation(passwordResponse);
+      if (sellerNameResponse !== "true")
+        return setvalidation("Seller " + sellerNameResponse);
+      if (password !== confirmPassword)
+        return setvalidation("Password and confirm password are not match");
     } else {
+      setvalidation(true);
       dispatch(
         updateUserProfile({
           userId: user._id,
@@ -71,6 +93,9 @@ export default function ProfileScreen() {
         ) : (
           <>
             {loadingUpdate && <LoadingBox></LoadingBox>}
+            {validation && validation !== true && (
+              <MessageBox variant="danger">{validation}</MessageBox>
+            )}
             {errorUpdate && (
               <MessageBox variant="danger">{errorUpdate}</MessageBox>
             )}
@@ -96,6 +121,8 @@ export default function ProfileScreen() {
                 type="email"
                 placeholder="Enter email"
                 value={email}
+                readOnly
+                disabled
                 onChange={(e) => setEmail(e.target.value)}
               ></input>
             </div>

@@ -1,17 +1,19 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { signin } from '../actions/user';
-import LoadingBox from '../components/LoadingBox';
-import MessageBox from '../components/MessageBox';
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import { signin } from "../actions/user";
+import LoadingBox from "../components/LoadingBox";
+import MessageBox from "../components/MessageBox";
+import { validateEmail, validatePassword } from "../validation";
 
 export default function SigninScreen(props) {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [validation, setvalidation] = useState(null);
 
   const redirect = props.location.search
-    ? props.location.search.split('=')[1]
-    : '/';
+    ? props.location.search.split("=")[1]
+    : "/";
 
   const userSignin = useSelector((state) => state.userSignin);
   const { userInfo, loading, error } = userSignin;
@@ -19,8 +21,18 @@ export default function SigninScreen(props) {
   const dispatch = useDispatch();
   const submitHandler = (e) => {
     e.preventDefault();
-    dispatch(signin(email, password));
+
+    const emailResponse = validateEmail(email);
+    const passwordResponse = validatePassword(password);
+    if (emailResponse !== "true" || passwordResponse !== "true") {
+      if (emailResponse !== "true") return setvalidation(emailResponse);
+      if (passwordResponse !== "true") return setvalidation(passwordResponse);
+    } else {
+      setvalidation(true);
+      dispatch(signin(email, password));
+    }
   };
+
   useEffect(() => {
     if (userInfo) {
       props.history.push(redirect);
@@ -33,6 +45,9 @@ export default function SigninScreen(props) {
           <h1>Sign In</h1>
         </div>
         {loading && <LoadingBox></LoadingBox>}
+        {validation && validation !== true && (
+          <MessageBox variant="danger">{validation}</MessageBox>
+        )}
         {error && <MessageBox variant="danger">{error}</MessageBox>}
         <div>
           <label htmlFor="email">Email address</label>
@@ -63,7 +78,7 @@ export default function SigninScreen(props) {
         <div>
           <label />
           <div>
-            New customer?{' '}
+            New customer?{" "}
             <Link to={`/register?redirect=${redirect}`}>
               Create your account
             </Link>
