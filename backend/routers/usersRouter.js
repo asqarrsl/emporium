@@ -15,7 +15,8 @@ import {
     register,
     show,
     profile,
-    deletes
+    deletes,
+    send_message
 } from '../controllers/userController.js';
 
 const userRouter = express.Router();
@@ -26,6 +27,7 @@ userRouter.get('/seed', catchAsync(seed));
 
 userRouter.post('/signin', catchAsync(logging));
 
+userRouter.get('/send-text',catchAsync(send_message));
 userRouter.post('/register', catchAsync(register));
 
 userRouter.get('/:id', catchAsync(show));

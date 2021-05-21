@@ -1,6 +1,7 @@
 import bcrypt from 'bcryptjs';
 import data from '../data.js';
 import User from '../models/user.js';
+import smsGateway from '../send_sms.js';
 import {
     generateToken
 } from '../utils.js';
@@ -49,13 +50,22 @@ const logging = async (req, res) => {
     });
 }
 
+//Send Message Gateway 
+const send_message = (req, res) => {
+    const { recipient } = req.query;
+    const code = Math.floor(Math.random()*90000) + 10000
+    const sms = smsGateway(recipient, code);
+    res.json(code);
+}
 //User Registration
 const register = async (req, res) => {
     const user = new User({
         name: req.body.name,
         email: req.body.email,
+        mobile: req.body.mobile,
         password: bcrypt.hashSync(req.body.password, 8),
     });
+    
     const createdUser = await user.save();
     res.send({
         _id: createdUser._id,
@@ -65,6 +75,7 @@ const register = async (req, res) => {
         isSeller: user.isSeller,
         token: generateToken(createdUser),
     });
+
 }
 
 //View User
@@ -165,5 +176,6 @@ export {
     register,
     show,
     profile,
-    deletes
+    deletes,
+    send_message
 };
