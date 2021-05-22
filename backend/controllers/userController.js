@@ -97,6 +97,7 @@ const profile = async (req, res) => {
     if (user) {
         user.name = req.body.name || user.name;
         user.email = req.body.email || user.email;
+        user.isSeller = req.body.isSeller || user.isSeller;
         if (user.isSeller) {
             user.seller.name = req.body.sellerName || user.seller.name;
             user.seller.logo = req.body.sellerLogo || user.seller.logo;

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import axios from "../../node_modules/axios/index";
 import { detailsUser, updateUserProfile } from "../actions/user";
 import LoadingBox from "../components/LoadingBox";
 import MessageBox from "../components/MessageBox";
@@ -10,17 +11,19 @@ export default function ProfileScreen() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [mobile, setMobile] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [sellerName, setSellerName] = useState("");
   const [sellerLogo, setSellerLogo] = useState("");
   const [sellerDescription, setSellerDescription] = useState("");
-
+  const [loadingUpload, setLoadingUpload] = useState(false);
   const [validation, setvalidation] = useState(null);
-
+  const [errorUpload, setErrorUpload] = useState('');
   const userSignin = useSelector((state) => state.userSignin);
   const { userInfo } = userSignin;
   const userDetails = useSelector((state) => state.userDetails);
   const { loading, error, user } = userDetails;
+  const [isSeller, setIsSeller] = useState(false);
   const userUpdateProfile = useSelector((state) => state.userUpdateProfile);
   const {
     success: successUpdate,
@@ -35,6 +38,8 @@ export default function ProfileScreen() {
     } else {
       setName(user.name);
       setEmail(user.email);
+      setMobile(user.mobile);
+      setIsSeller(user.isSeller);
       if (user.seller) {
         setSellerName(user.seller.name);
         setSellerLogo(user.seller.logo);
@@ -42,10 +47,29 @@ export default function ProfileScreen() {
       }
     }
   }, [dispatch, userInfo._id, user]);
+  const uploadFileHandler = async (e) => {
+    const file = e.target.files[0];
+    const bodyFormData = new FormData();
+    bodyFormData.append('image', file);
+    setLoadingUpload(true);
+    try {
+      const { data } = await axios.post('/api/uploads', bodyFormData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization: `Bearer ${userInfo.token}`,
+        },
+      });
+      setSellerLogo(data);
+      setLoadingUpload(false);
+    } catch (error) {
+      setErrorUpload(error.message);
+      setLoadingUpload(false);
+    }
+  };
   const submitHandler = (e) => {
     e.preventDefault();
     // dispatch update profile
-
+    // alert(isSeller);
     const nameResponse = validateName(name);
     const sellerNameResponse = validateName(sellerName);
     const emailResponse = validateEmail(email);
@@ -73,6 +97,7 @@ export default function ProfileScreen() {
           name,
           email,
           password,
+          isSeller,
           sellerName,
           sellerLogo,
           sellerDescription,
@@ -86,6 +111,10 @@ export default function ProfileScreen() {
         <div>
           <h1>User Profile</h1>
         </div>
+        {loadingUpload && <LoadingBox></LoadingBox>}
+        {errorUpload && (
+          <MessageBox variant="danger">{errorUpload}</MessageBox>
+        )}
         {loading ? (
           <LoadingBox></LoadingBox>
         ) : error ? (
@@ -115,15 +144,27 @@ export default function ProfileScreen() {
               ></input>
             </div>
             <div>
-              <label htmlFor="email">Email</label>
+              <label htmlFor="email">E-mail Address</label>
               <input
                 id="email"
                 type="email"
-                placeholder="Enter email"
+                placeholder="E-mail Address"
                 value={email}
                 readOnly
                 disabled
                 onChange={(e) => setEmail(e.target.value)}
+              ></input>
+            </div>
+            <div>
+              <label htmlFor="text">Mobile Number</label>
+              <input
+                id="mobile"
+                type="text"
+                placeholder="Mobile Number"
+                value={mobile}
+                readOnly
+                disabled
+                // onChange={(e) => setEmail(e.target.value)}
               ></input>
             </div>
             <div>
@@ -144,7 +185,16 @@ export default function ProfileScreen() {
                 onChange={(e) => setConfirmPassword(e.target.value)}
               ></input>
             </div>
-            {user.isSeller && (
+            <div>
+              <label htmlFor="isSeller">Is Seller</label>
+              <input
+                id="isSeller"
+                type="checkbox"
+                checked={isSeller}
+                onChange={(e) => setIsSeller(e.target.checked)}
+              ></input>
+            </div>
+            {isSeller && (
               <>
                 <h2>Seller</h2>
                 <div>
@@ -158,13 +208,21 @@ export default function ProfileScreen() {
                   ></input>
                 </div>
                 <div>
-                  <label htmlFor="sellerLogo">Seller Logo</label>
+                  <label htmlFor="image">Image</label>
                   <input
-                    id="sellerLogo"
+                    id="image"
                     type="text"
-                    placeholder="Enter Seller Logo"
+                    placeholder="Enter image"
                     value={sellerLogo}
-                    onChange={(e) => setSellerLogo(e.target.value)}
+                    disabled
+                    readOnly
+                  ></input>
+                  <input
+                    type="file"
+                    id="image"
+                    label="Choose Image"
+                    accept="image/png, image/gif, image/jpeg"
+                    onChange={uploadFileHandler}
                   ></input>
                 </div>
                 <div>

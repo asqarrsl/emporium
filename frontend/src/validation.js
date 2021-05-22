@@ -13,6 +13,17 @@ const validateEmail = (value) => {
   }
   return "Email can not be empty";
 };
+const validateMobile = (value) => {
+  var regex = new RegExp(/^(?:\+94)[0-9]{9,9}$/);
+  if (value) {
+    if (!regex.test(value)) {
+      return "Mobile Number is invalid";
+    } else {
+      return "true";
+    }
+  }
+  return "Mobile Number can not be empty";
+};
 
 const validatePassword = (value) => {
   const pattern = "^.{6,}$";
@@ -50,4 +61,4 @@ const validatePostalCode = (value) => {
   return "Postal Code can not be empty";
 };
 
-export { validateEmail, validatePassword, validateName, validatePostalCode };
+export { validateEmail, validatePassword, validateName, validatePostalCode,validateMobile };
