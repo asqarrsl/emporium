@@ -3,7 +3,7 @@ import data from '../data.js';
 import User from '../models/user.js';
 import smsGateway from '../send_sms.js';
 import {
-    generateToken
+    generateToken, mailgun
 } from '../utils.js';
 
 //View Top Sellers
@@ -67,6 +67,22 @@ const register = async (req, res) => {
     });
     
     const createdUser = await user.save();
+    mailgun()
+      .messages()
+      .send({
+          from: "Emporium <asqarrsl@gmail.com>",
+          to: `${user.name} <${user.email}>`,
+          subject: `Wellcome to Emproium`,
+          html: "You Have Successfully Registered to Emporium",
+        },
+        (error, body) => {
+          if (error) {
+            console.log(error);
+          } else {
+            console.log(body);
+          }
+        }
+      );
     res.send({
         _id: createdUser._id,
         name: createdUser.name,
