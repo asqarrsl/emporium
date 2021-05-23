@@ -10,11 +10,13 @@ import { listTopSellers } from '../actions/user';
 import { Link } from 'react-router-dom';
 
 export default function HomeScreen() {
+
   const dispatch = useDispatch();
+
   const productList = useSelector((state) => state.productList);
   const { loading, error, products } = productList;
-
   const userTopSellersList = useSelector((state) => state.userTopSellersList);
+
   const {
     loading: loadingSellers,
     error: errorSellers,
@@ -25,6 +27,7 @@ export default function HomeScreen() {
     dispatch(listProducts({}));
     dispatch(listTopSellers());
   }, [dispatch]);
+  
   return (
     <div>
       <h1 class="mainh1">Top Sellers</h1>

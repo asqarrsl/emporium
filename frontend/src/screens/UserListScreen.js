@@ -6,6 +6,7 @@ import MessageBox from '../components/MessageBox';
 import { USER_DETAILS_RESET } from '../constants/user';
 
 export default function UserListScreen(props) {
+
   const userList = useSelector((state) => state.userList);
   const { loading, error, users } = userList;
 
@@ -17,17 +18,20 @@ export default function UserListScreen(props) {
   } = userDelete;
 
   const dispatch = useDispatch();
+  
   useEffect(() => {
     dispatch(listUsers());
     dispatch({
       type: USER_DETAILS_RESET,
     });
   }, [dispatch, successDelete]);
+
   const deleteHandler = (user) => {
     if (window.confirm('Are you sure?')) {
       dispatch(deleteUser(user._id));
     }
   };
+
   return (
     <div>
       <h1>Users</h1>

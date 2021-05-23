@@ -8,6 +8,7 @@ import MessageBox from '../components/MessageBox';
 import { USER_UPDATE_RESET } from '../constants/user';
 
 export default function UserEditScreen(props) {
+
   const userId = props.match.params.id;
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -45,6 +46,7 @@ export default function UserEditScreen(props) {
     // dispatch update user
     dispatch(updateUser({ _id: userId, name, email, isSeller, isAdmin }));
   };
+  
   return (
     <div>
       <form className="form" onSubmit={submitHandler}>

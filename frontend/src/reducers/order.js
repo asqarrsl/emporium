@@ -43,20 +43,6 @@ export const orderCreateReducer = (state = {}, action) => {
       return state;
   }
 };
-
-export const orderDetailsReducer = (state = { loading: true }, action) => {
-  switch (action.type) {
-    case ORDER_DETAILS_REQUEST:
-      return { loading: true };
-    case ORDER_DETAILS_SUCCESS:
-      return { loading: false, order: action.payload };
-    case ORDER_DETAILS_FAIL:
-      return { loading: false, error: action.payload };
-    default:
-      return state;
-  }
-};
-
 export const orderPayReducer = (state = {}, action) => {
   switch (action.type) {
     case ORDER_PAY_REQUEST:
@@ -71,6 +57,19 @@ export const orderPayReducer = (state = {}, action) => {
       return state;
   }
 };
+export const orderDetailsReducer = (state = { loading: true }, action) => {
+  switch (action.type) {
+    case ORDER_DETAILS_REQUEST:
+      return { loading: true };
+    case ORDER_DETAILS_SUCCESS:
+      return { loading: false, order: action.payload };
+    case ORDER_DETAILS_FAIL:
+      return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
+
 export const orderMineListReducer = (state = { orders: [] }, action) => {
   switch (action.type) {
     case ORDER_MINE_LIST_REQUEST:
@@ -83,6 +82,7 @@ export const orderMineListReducer = (state = { orders: [] }, action) => {
       return state;
   }
 };
+
 export const orderListReducer = (state = { orders: [] }, action) => {
   switch (action.type) {
     case ORDER_LIST_REQUEST:
@@ -95,16 +95,19 @@ export const orderListReducer = (state = { orders: [] }, action) => {
       return state;
   }
 };
-export const orderDeleteReducer = (state = {}, action) => {
+
+
+export const orderSummaryReducer = (
+  state = { loading: true, summary: {} },
+  action
+) => {
   switch (action.type) {
-    case ORDER_DELETE_REQUEST:
+    case ORDER_SUMMARY_REQUEST:
       return { loading: true };
-    case ORDER_DELETE_SUCCESS:
-      return { loading: false, success: true };
-    case ORDER_DELETE_FAIL:
+    case ORDER_SUMMARY_SUCCESS:
+      return { loading: false, summary: action.payload };
+    case ORDER_SUMMARY_FAIL:
       return { loading: false, error: action.payload };
-    case ORDER_DELETE_RESET:
-      return {};
     default:
       return state;
   }
@@ -125,17 +128,16 @@ export const orderDeliverReducer = (state = {}, action) => {
   }
 };
 
-export const orderSummaryReducer = (
-  state = { loading: true, summary: {} },
-  action
-) => {
+export const orderDeleteReducer = (state = {}, action) => {
   switch (action.type) {
-    case ORDER_SUMMARY_REQUEST:
+    case ORDER_DELETE_REQUEST:
       return { loading: true };
-    case ORDER_SUMMARY_SUCCESS:
-      return { loading: false, summary: action.payload };
-    case ORDER_SUMMARY_FAIL:
+    case ORDER_DELETE_SUCCESS:
+      return { loading: false, success: true };
+    case ORDER_DELETE_FAIL:
       return { loading: false, error: action.payload };
+    case ORDER_DELETE_RESET:
+      return {};
     default:
       return state;
   }

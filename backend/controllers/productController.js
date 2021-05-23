@@ -1,6 +1,6 @@
-import data from '../data.js';
-import Product from '../models/product.js';
-import User from '../models/user.js';
+import data from '../data.js';  // Get Data to Seed
+import Product from '../models/product.js';   // Product Model
+import User from '../models/user.js';   // User Model
 
 //View All Products
 const index = async (req, res) => {

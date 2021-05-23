@@ -28,6 +28,7 @@ import { listProductCategories } from "./actions/product";
 import LoadingBox from "./components/LoadingBox";
 import MessageBox from "./components/MessageBox";
 import DashboardScreen from "./screens/DashboardScreen";
+import DelivaryMethodScreen from "./screens/DelivaryMethodScreen";
 
 function App() {
   const cart = useSelector((state) => state.cart);
@@ -73,7 +74,7 @@ function App() {
             ></Route>
           </div>
           <div className="row">
-            <button class="cartbtn">
+            <button className="cartbtn">
               <Link to="/cart">
                 {cartItems.length > 0 && (
                   <span className="badge">{cartItems.length}</span>
@@ -138,7 +139,7 @@ function App() {
                 </ul>
               </div>
             )}
-            <i class="profilebtn"></i>
+            <i className="profilebtn"></i>
           </div>
           <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"></link>
         </header>
@@ -172,22 +173,44 @@ function App() {
             )}
           </ul>
         </aside>
+        {/* Routes of The Web Application */}
         <main>
-          <Route path="/seller/:id" component={SellerScreen}></Route>
-          <Route path="/cart/:id?" component={CartScreen}></Route>
-          <Route path="/product/:id" component={ProductScreen} exact></Route>
+          <Route path="/seller/:id" component={SellerScreen}></Route>{" "}
+          {/* to seller screen */}
+          <Route path="/cart/:id?" component={CartScreen}></Route>{" "}
+          {/* cart screen */}
+          <Route
+            path="/product/:id"
+            component={ProductScreen}
+            exact
+          ></Route>{" "}
+          {/* product view */}
           <Route
             path="/product/:id/edit"
             component={ProductEditScreen}
             exact
-          ></Route>
-          <Route path="/signin" component={SigninScreen}></Route>
-          <Route path="/register" component={RegisterScreen}></Route>
-          <Route path="/shipping" component={ShippingAddressScreen}></Route>
-          <Route path="/payment" component={PaymentMethodScreen}></Route>
-          <Route path="/placeorder" component={PlaceOrderScreen}></Route>
-          <Route path="/order/:id" component={OrderScreen}></Route>
-          <Route path="/orderhistory" component={OrderHistoryScreen}></Route>
+          ></Route>{" "}
+          {/* product details edit screen */}
+          <Route path="/signin" component={SigninScreen}></Route>{" "}
+          {/* user sign in screen */}
+          <Route path="/register" component={RegisterScreen}></Route>{" "}
+          {/* user register screen */}
+          <Route
+            path="/shipping"
+            component={ShippingAddressScreen}
+          ></Route>{" "}
+          {/* shipping details screen */}
+          <Route path="/payment" component={PaymentMethodScreen}></Route>{" "}
+          {/* payment screen */}
+          <Route path="/placeorder" component={PlaceOrderScreen}></Route>{" "}
+          {/* screen to place orders */}
+          <Route path="/order/:id" component={OrderScreen}></Route>{" "}
+          {/* order screen  */}
+          <Route
+            path="/orderhistory"
+            component={OrderHistoryScreen}
+          ></Route>{" "}
+          {/* order history screen */}
           <Route
             path="/search/name/:name?"
             component={SearchScreen}
@@ -197,27 +220,31 @@ function App() {
             path="/search/category/:category"
             component={SearchScreen}
             exact
-          ></Route>
+          ></Route>{" "}
+          {/* search by catagory */}
           <Route
             path="/search/category/:category/name/:name"
             component={SearchScreen}
             exact
-          ></Route>
+          ></Route>{" "}
+          {/* search by name */}
           <Route
             path="/search/category/:category/name/:name/min/:min/max/:max/rating/:rating/order/:order/pageNumber/:pageNumber"
             component={SearchScreen}
             exact
-          ></Route>
+          ></Route>{" "}
+          {/* search filter */}
           <PrivateRoute
             path="/profile"
             component={ProfileScreen}
-          ></PrivateRoute>
-
+          ></PrivateRoute>{" "}
+          {/* user profile screen */}
           <AdminRoute
             path="/productlist"
             component={ProductListScreen}
             exact
-          ></AdminRoute>
+          ></AdminRoute>{" "}
+          {/* product list  */}
           <AdminRoute
             path="/productlist/pageNumber/:pageNumber"
             component={ProductListScreen}
@@ -227,18 +254,19 @@ function App() {
             path="/orderlist"
             component={OrderListScreen}
             exact
-          ></AdminRoute>
+          ></AdminRoute>{" "}
+          {/* orders list */}
           <AdminRoute path="/userlist" component={UserListScreen}></AdminRoute>
           <AdminRoute
             path="/user/:id/edit"
             component={UserEditScreen}
-          ></AdminRoute>
-
+          ></AdminRoute>{" "}
+          {/* user details edit screen */}
           <AdminRoute
             path="/dashboard"
             component={DashboardScreen}
-          ></AdminRoute>
-
+          ></AdminRoute>{" "}
+          {/* admin dashboard */}
           <SellerRoute
             path="/productlist/seller"
             component={ProductListScreen}
@@ -247,7 +275,6 @@ function App() {
             path="/orderlist/seller"
             component={OrderListScreen}
           ></SellerRoute>
-
           <Route path="/" component={HomeScreen} exact></Route>
         </main>
         <footer className="row center">

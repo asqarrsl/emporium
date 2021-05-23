@@ -1,10 +1,10 @@
 import bcrypt from 'bcryptjs';
-import data from '../data.js';
-import User from '../models/user.js';
-import smsGateway from '../send_sms.js';
+import data from '../data.js';  //Get Data to Seed Users
+import User from '../models/user.js';   //User Model
+import {smsGateway, smsGatewayMessage} from '../send_sms.js';  //import SMS to send OTP
 import {
     generateToken, mailgun
-} from '../utils.js';
+} from '../utils.js';   //importing email service and the token generation template
 
 //View Top Sellers
 const topSellers = async (req, res) => {
@@ -67,6 +67,8 @@ const register = async (req, res) => {
     });
     
     const createdUser = await user.save();
+    const messages = "You Have Successfully Registered to Emporium";
+    const {message} = smsGatewayMessage(order.user.mobile, messages);
     mailgun()
       .messages()
       .send({

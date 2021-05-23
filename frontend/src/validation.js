@@ -1,6 +1,5 @@
+//email validations and checking if null
 const validateEmail = (value) => {
-  //   const pattern = `/^[a-zA-Z0-9]+@(?:[a-zA-Z0-9]+\.)+[A-Za-z]+$/`;
-  //   const regex = new RegExp(pattern);
   var regex = new RegExp(
     /^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i
   );
@@ -13,6 +12,8 @@ const validateEmail = (value) => {
   }
   return "Email can not be empty";
 };
+
+//Mobile number validations and checking if null
 const validateMobile = (value) => {
   var regex = new RegExp(/^(?:\+94)[0-9]{9,9}$/);
   if (value) {
@@ -25,6 +26,7 @@ const validateMobile = (value) => {
   return "Mobile Number can not be empty";
 };
 
+//Password validation and checking if null
 const validatePassword = (value) => {
   const pattern = "^.{6,}$";
   const regex = new RegExp(pattern);
@@ -38,6 +40,7 @@ const validatePassword = (value) => {
   return "Password can not be empty";
 };
 
+//Name validation and checking if null
 const validateName = (value) => {
   const regex = new RegExp(/^[a-zA-Z](\s?[a-zA-Z]){4,29}$/);
   if (value) {
@@ -49,6 +52,8 @@ const validateName = (value) => {
   }
   return "Name can not be empty";
 };
+
+//Postal code validation and checking if null
 const validatePostalCode = (value) => {
   const regex = new RegExp(/^[0-9]{5,10}$/);
   if (value) {
@@ -61,4 +66,10 @@ const validatePostalCode = (value) => {
   return "Postal Code can not be empty";
 };
 
-export { validateEmail, validatePassword, validateName, validatePostalCode,validateMobile };
+export {
+  validateEmail,
+  validatePassword,
+  validateName,
+  validatePostalCode,
+  validateMobile,
+};

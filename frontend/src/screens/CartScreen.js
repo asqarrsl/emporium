@@ -5,13 +5,14 @@ import { addToCart, removeFromCart } from '../actions/cart';
 import MessageBox from '../components/MessageBox';
 
 export default function CartScreen(props) {
+
   const productId = props.match.params.id;
-  const qty = props.location.search
-    ? Number(props.location.search.split('=')[1])
-    : 1;
+  const qty = props.location.search ? Number(props.location.search.split('=')[1]) : 1;
   const cart = useSelector((state) => state.cart);
   const { cartItems, error } = cart;
+
   const dispatch = useDispatch();
+  
   useEffect(() => {
     if (productId) {
       dispatch(addToCart(productId, qty));
@@ -26,6 +27,7 @@ export default function CartScreen(props) {
   const checkoutHandler = () => {
     props.history.push('/signin?redirect=shipping');
   };
+  
   return (
     <div className="row top">
       <div className="col-2">

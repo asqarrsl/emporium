@@ -9,6 +9,7 @@ import Rating from '../components/Rating';
 import { prices, ratings } from '../utils';
 
 export default function SearchScreen(props) {
+
   const {
     name = 'all',
     category = 'all',
@@ -18,16 +19,20 @@ export default function SearchScreen(props) {
     order = 'newest',
     pageNumber = 1,
   } = useParams();
+
   const dispatch = useDispatch();
+
   const productList = useSelector((state) => state.productList);
   const { loading, error, products, page, pages } = productList;
 
   const productCategoryList = useSelector((state) => state.productCategoryList);
+
   const {
     loading: loadingCategories,
     error: errorCategories,
     categories,
   } = productCategoryList;
+
   useEffect(() => {
     dispatch(
       listProducts({
@@ -52,6 +57,7 @@ export default function SearchScreen(props) {
     const filterMax = filter.max ? filter.max : filter.max === 0 ? 0 : max;
     return `/search/category/${filterCategory}/name/${filterName}/min/${filterMin}/max/${filterMax}/rating/${filterRating}/order/${sortOrder}/pageNumber/${filterPage}`;
   };
+  
   return (
     <div>
       <div className="row">

@@ -8,6 +8,7 @@ import MessageBox from "../components/MessageBox";
 import { validateEmail, validateName, validatePassword,validateMobile } from "../validation";
 
 export default function RegisterScreen(props) {
+
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -29,6 +30,7 @@ export default function RegisterScreen(props) {
   const dispatch = useDispatch();
 
   const otpgen = async(e) =>{
+
     e.preventDefault()
     const setnumber = recipient;
     setrecipientvalid(setnumber);
@@ -81,6 +83,7 @@ export default function RegisterScreen(props) {
       props.history.push(redirect);
     }
   }, [props.history, redirect, userInfo]);
+  
   return (
     <div>
       <form className="form" onSubmit={submitHandler}>

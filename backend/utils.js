@@ -1,6 +1,7 @@
-import jwt from 'jsonwebtoken';
-import mg from 'mailgun-js';
+import jwt from 'jsonwebtoken'; // JSON web TOKEN to secure REST API
+import mg from 'mailgun-js'; //email service
 
+// Generate Token Function for Users
 export const generateToken = (user) => {
   return jwt.sign({
       _id: user._id,
@@ -15,10 +16,11 @@ export const generateToken = (user) => {
   );
 };
 
+// Middleware to check logged in users
 export const isAuth = (req, res, next) => {
-  const authorization = req.headers.authorization;
-  if (authorization) {
-    const token = authorization.slice(7, authorization.length); // Bearer XXXXXX
+  const auth = req.headers.authorization;
+  if (auth) {
+    const token = auth.slice(7, auth.length); // Bearer XXXXXX
     jwt.verify(
       token,
       process.env.JWT_SECRET || 'somethingsecret',
@@ -39,6 +41,8 @@ export const isAuth = (req, res, next) => {
     });
   }
 };
+
+// Middleware to check Admin Privilege 
 export const isAdmin = (req, res, next) => {
   if (req.user && req.user.isAdmin) {
     next();
@@ -48,6 +52,8 @@ export const isAdmin = (req, res, next) => {
     });
   }
 };
+
+// Middleware to check Seller Privilege 
 export const isSeller = (req, res, next) => {
   if (req.user && req.user.isSeller) {
     next();
@@ -57,6 +63,8 @@ export const isSeller = (req, res, next) => {
     });
   }
 };
+
+// Middleware to check Seller and Admin Privilage 
 export const isSellerOrAdmin = (req, res, next) => {
   if (req.user && (req.user.isSeller || req.user.isAdmin)) {
     next();
@@ -67,12 +75,14 @@ export const isSellerOrAdmin = (req, res, next) => {
   }
 };
 
+//email Service
 export const mailgun = () =>
   mg({
     apiKey: process.env.MAILGUN_API_KEY,
     domain: process.env.MAILGUN_DOMIAN,
   });
 
+  //Email template for orders
 export const payOrderEmailTemplate = (order) => {
   return `
   <h1>Thanks for shopping with us</h1>

@@ -6,6 +6,7 @@ import MessageBox from "../components/MessageBox";
 import { validateName, validatePostalCode } from "../validation";
 
 export default function ShippingAddressScreen(props) {
+
   const userSignin = useSelector((state) => state.userSignin);
 
   const { userInfo } = userSignin;
@@ -15,6 +16,7 @@ export default function ShippingAddressScreen(props) {
   if (!userInfo) {
     props.history.push("/signin");
   }
+
   const [fullName, setFullName] = useState(shippingAddress.fullName);
   const [address, setAddress] = useState(shippingAddress.address);
   const [city, setCity] = useState(shippingAddress.city);
@@ -23,6 +25,7 @@ export default function ShippingAddressScreen(props) {
   const [validation, setvalidation] = useState(null);
   const dispatch = useDispatch();
   const submitHandler = (e) => {
+    
     e.preventDefault();
 
     let moveOn = true;

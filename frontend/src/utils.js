@@ -1,3 +1,4 @@
+//prices filter
 export const prices = [
   {
     name: "Any",
@@ -20,6 +21,8 @@ export const prices = [
     max: 1000,
   },
 ];
+
+//rating filter
 export const ratings = [
   {
     name: "4stars & up",

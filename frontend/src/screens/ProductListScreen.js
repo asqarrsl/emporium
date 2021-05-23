@@ -14,6 +14,7 @@ import {
 } from '../constants/product';
 
 export default function ProductListScreen(props) {
+
   const { pageNumber = 1 } = useParams();
 
   const sellerMode = props.match.path.indexOf('/seller') >= 0;
@@ -29,25 +30,33 @@ export default function ProductListScreen(props) {
   } = productCreate;
 
   const productDelete = useSelector((state) => state.productDelete);
+
   const {
     loading: loadingDelete,
     error: errorDelete,
     success: successDelete,
   } = productDelete;
+
   const userSignin = useSelector((state) => state.userSignin);
   const { userInfo } = userSignin;
+
   const dispatch = useDispatch();
+
   useEffect(() => {
+
     if (successCreate) {
       dispatch({ type: PRODUCT_CREATE_RESET });
       props.history.push(`/product/${createdProduct._id}/edit`);
     }
+
     if (successDelete) {
       dispatch({ type: PRODUCT_DELETE_RESET });
     }
+
     dispatch(
       listProducts({ seller: sellerMode ? userInfo._id : '', pageNumber })
     );
+
   }, [
     createdProduct,
     dispatch,
@@ -64,9 +73,11 @@ export default function ProductListScreen(props) {
       dispatch(deleteProduct(product._id));
     }
   };
+
   const createHandler = () => {
     dispatch(createProduct());
   };
+  
   return (
     <div>
       <div className="row">

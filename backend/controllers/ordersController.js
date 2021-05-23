@@ -1,11 +1,13 @@
-import Order from "../models/order.js";
-import User from "../models/user.js";
-import Product from "../models/product.js";
+import Order from "../models/order.js";   // Order Model
+import User from "../models/user.js";   // User Model
+import Product from "../models/product.js";   // Product Model
 
 import {
   mailgun,
   payOrderEmailTemplate
-} from "../utils.js";
+} from "../utils.js";     //importing email service and the email template
+
+import { smsGatewayMessage } from "../send_sms.js";   //importing SMS Service to send OTP
 
 //All Orders
 const index = async (req, res) => {
@@ -134,7 +136,7 @@ const show = async (req, res) => {
 const update = async (req, res) => {
   const order = await Order.findById(req.params.id).populate(
     "user",
-    "email name"
+    "email name mobile"
   );
   if (order) {
     order.isPaid = true;
@@ -162,6 +164,9 @@ const update = async (req, res) => {
           }
         }
       );
+    const messages = "Payment Has Been Confirmed, Your Order will be Delivered in 5-10 days";
+    const {message} = smsGatewayMessage(order.user.mobile, messages);
+    
     res.send({
       message: "Order Paid",
       order: updatedOrder

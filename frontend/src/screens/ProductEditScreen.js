@@ -7,7 +7,9 @@ import MessageBox from '../components/MessageBox';
 import { PRODUCT_UPDATE_RESET } from '../constants/product';
 
 export default function ProductEditScreen(props) {
+
   const productId = props.match.params.id;
+
   const [name, setName] = useState('');
   const [price, setPrice] = useState('');
   const [image, setImage] = useState('');
@@ -20,6 +22,7 @@ export default function ProductEditScreen(props) {
   const { loading, error, product } = productDetails;
 
   const productUpdate = useSelector((state) => state.productUpdate);
+
   const {
     loading: loadingUpdate,
     error: errorUpdate,
@@ -27,10 +30,13 @@ export default function ProductEditScreen(props) {
   } = productUpdate;
 
   const dispatch = useDispatch();
+
   useEffect(() => {
+
     if (successUpdate) {
       props.history.push('/productlist');
     }
+
     if (!product || product._id !== productId || successUpdate) {
       dispatch({ type: PRODUCT_UPDATE_RESET });
       dispatch(detailsProduct(productId));
@@ -43,7 +49,9 @@ export default function ProductEditScreen(props) {
       setBrand(product.brand);
       setDescription(product.description);
     }
+
   }, [product, dispatch, productId, successUpdate, props.history]);
+
   const submitHandler = (e) => {
     e.preventDefault();
     // TODO: dispatch update product
@@ -60,28 +68,36 @@ export default function ProductEditScreen(props) {
       })
     );
   };
+
   const [loadingUpload, setLoadingUpload] = useState(false);
   const [errorUpload, setErrorUpload] = useState('');
 
   const userSignin = useSelector((state) => state.userSignin);
   const { userInfo } = userSignin;
+
   const uploadFileHandler = async (e) => {
+
     const file = e.target.files[0];
     const bodyFormData = new FormData();
     bodyFormData.append('image', file);
     setLoadingUpload(true);
     try {
+
       const { data } = await Axios.post('/api/uploads', bodyFormData, {
         headers: {
           'Content-Type': 'multipart/form-data',
           Authorization: `Bearer ${userInfo.token}`,
         },
       });
+
       setImage(data);
       setLoadingUpload(false);
+
     } catch (error) {
+
       setErrorUpload(error.message);
       setLoadingUpload(false);
+
     }
   };
 

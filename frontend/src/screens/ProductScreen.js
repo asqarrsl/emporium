@@ -8,7 +8,9 @@ import Rating from '../components/Rating';
 import { PRODUCT_REVIEW_CREATE_RESET } from '../constants/product';
 
 export default function ProductScreen(props) {
+
   const dispatch = useDispatch();
+
   const productId = props.match.params.id;
   const [qty, setQty] = useState(1);
   const productDetails = useSelector((state) => state.productDetails);
@@ -17,6 +19,7 @@ export default function ProductScreen(props) {
   const { userInfo } = userSignin;
 
   const productReviewCreate = useSelector((state) => state.productReviewCreate);
+
   const {
     loading: loadingReviewCreate,
     error: errorReviewCreate,
@@ -27,27 +30,35 @@ export default function ProductScreen(props) {
   const [comment, setComment] = useState('');
 
   useEffect(() => {
+
     if (successReviewCreate) {
       window.alert('Review Submitted Successfully');
       setRating('');
       setComment('');
       dispatch({ type: PRODUCT_REVIEW_CREATE_RESET });
     }
+
     dispatch(detailsProduct(productId));
+
   }, [dispatch, productId, successReviewCreate]);
+
   const addToCartHandler = () => {
     props.history.push(`/cart/${productId}?qty=${qty}`);
   };
+
   const submitHandler = (e) => {
     e.preventDefault();
     if (comment && rating) {
+      
       dispatch(
         createReview(productId, { rating, comment, name: userInfo.name })
       );
+
     } else {
       alert('Please enter comment and rating');
     }
   };
+
   return (
     <div>
       {loading ? (

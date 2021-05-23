@@ -8,6 +8,7 @@ import { USER_UPDATE_PROFILE_RESET } from "../constants/user";
 import { validateEmail, validateName, validatePassword } from "../validation";
 
 export default function ProfileScreen() {
+
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -25,12 +26,15 @@ export default function ProfileScreen() {
   const { loading, error, user } = userDetails;
   const [isSeller, setIsSeller] = useState(false);
   const userUpdateProfile = useSelector((state) => state.userUpdateProfile);
+
   const {
     success: successUpdate,
     error: errorUpdate,
     loading: loadingUpdate,
   } = userUpdateProfile;
+
   const dispatch = useDispatch();
+
   useEffect(() => {
     if (!user) {
       dispatch({ type: USER_UPDATE_PROFILE_RESET });
@@ -47,26 +51,36 @@ export default function ProfileScreen() {
       }
     }
   }, [dispatch, userInfo._id, user]);
+
   const uploadFileHandler = async (e) => {
+
     const file = e.target.files[0];
     const bodyFormData = new FormData();
     bodyFormData.append('image', file);
+
     setLoadingUpload(true);
+
     try {
+
       const { data } = await axios.post('/api/uploads', bodyFormData, {
         headers: {
           'Content-Type': 'multipart/form-data',
           Authorization: `Bearer ${userInfo.token}`,
         },
       });
+
       setSellerLogo(data);
       setLoadingUpload(false);
+
     } catch (error) {
+
       setErrorUpload(error.message);
       setLoadingUpload(false);
+
     }
   };
   const submitHandler = (e) => {
+
     e.preventDefault();
     // dispatch update profile
     // alert(isSeller);
@@ -105,6 +119,7 @@ export default function ProfileScreen() {
       );
     }
   };
+  
   return (
     <div>
       <form className="form" onSubmit={submitHandler}>
