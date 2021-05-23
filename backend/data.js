@@ -29,7 +29,7 @@ const data = {
     {
       name: "Straight long coat",
       category: "Womens",
-      image: "/images/5xN6v24411.png",
+      image: "/images/5xN6v24411.jpg",
       price: 120,
       countInStock: 10,
       brand: "Brand",
