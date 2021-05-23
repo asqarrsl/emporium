@@ -60,7 +60,7 @@ export default function ProductScreen(props) {
           <div className="row top">
             <div className="col-2">
               <img
-                className="large"
+                className="medium2"
                 src={product.image}
                 alt={product.name}
               ></img>
@@ -68,7 +68,7 @@ export default function ProductScreen(props) {
             <div className="col-1">
               <ul>
                 <li>
-                  <h1>{product.name}</h1>
+                  <h1 class="mainh1">{product.name}</h1>
                 </li>
                 <li>
                   <Rating
@@ -84,28 +84,31 @@ export default function ProductScreen(props) {
               </ul>
             </div>
             <div className="col-1">
-              <div className="card card-body">
-                <ul>
-                  <li>
-                    Seller{' '}
-                    <h2>
-                      <Link to={`/seller/${product.seller._id}`}>
-                        {product.seller.seller.name}
-                      </Link>
-                    </h2>
+              <div className="card card-body2">
+                <h2 className="h2cart">My Cart</h2>
+                  <ul>
+                    <li class="row2">
+                      <div className="row2">Seller{' '}</div>
+                      <div className="p-1">
+                        <h2 className="p-1">
+                          <Link to={`/seller/${product.seller._id}`} className="p-1">
+                            {product.seller.seller.name}
+                          </Link>
+                        </h2>
+                      </div>
                     <Rating
                       rating={product.seller.seller.rating}
                       numReviews={product.seller.seller.numReviews}
                     ></Rating>
                   </li>
                   <li>
-                    <div className="row">
+                    <div className="row2">
                       <div>Price</div>
                       <div className="price">${product.price}</div>
                     </div>
                   </li>
                   <li>
-                    <div className="row">
+                    <div className="row2">
                       <div>Status</div>
                       <div>
                         {product.countInStock > 0 ? (
@@ -119,7 +122,7 @@ export default function ProductScreen(props) {
                   {product.countInStock > 0 && (
                     <>
                       <li>
-                        <div className="row">
+                        <div className="row2">
                           <div>Qty</div>
                           <div>
                             <select
@@ -152,13 +155,13 @@ export default function ProductScreen(props) {
             </div>
           </div>
           <div>
-            <h2 id="reviews">Reviews</h2>
+            <h1 id="reviews">Reviews</h1>
             {product.reviews.length === 0 && (
               <MessageBox>There is no review</MessageBox>
             )}
             <ul>
               {product.reviews.map((review) => (
-                <li key={review._id}>
+                <li class="row3"  key={review._id}>
                   <strong>{review.name}</strong>
                   <Rating rating={review.rating} caption=" "></Rating>
                   <p>{review.createdAt.substring(0, 10)}</p>

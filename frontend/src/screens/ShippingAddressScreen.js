@@ -65,10 +65,9 @@ export default function ShippingAddressScreen(props) {
   return (
     <div>
       <CheckoutSteps step1 step2></CheckoutSteps>
-
       <form className="form" onSubmit={submitHandler}>
         <div>
-          <h1>Shipping Address</h1>
+          <h1 class="mainh1">Shipping Address</h1>
         </div>
         {validation && validation !== true && (
           <MessageBox variant="danger">{validation}</MessageBox>

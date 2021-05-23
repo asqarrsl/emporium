@@ -109,7 +109,7 @@ export default function ProfileScreen() {
     <div>
       <form className="form" onSubmit={submitHandler}>
         <div>
-          <h1>User Profile</h1>
+          <h1 class="mainh1">User Profile</h1>
         </div>
         {loadingUpload && <LoadingBox></LoadingBox>}
         {errorUpload && (
@@ -186,13 +186,17 @@ export default function ProfileScreen() {
               ></input>
             </div>
             <div>
-              <label htmlFor="isSeller">Is Seller</label>
-              <input
-                id="isSeller"
-                type="checkbox"
-                checked={isSeller}
-                onChange={(e) => setIsSeller(e.target.checked)}
-              ></input>
+            {!user.isSeller && 
+              <label htmlFor="isSeller">REGISTER FOR SELLER
+              &nbsp;
+                <input
+                  id="isSeller"
+                  type="checkbox"
+                  checked={isSeller}
+                  onChange={(e) => setIsSeller(e.target.checked)}
+                ></input>
+              </label>
+            }
             </div>
             {isSeller && (
               <>

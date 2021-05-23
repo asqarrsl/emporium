@@ -42,7 +42,7 @@ export default function SigninScreen(props) {
     <div>
       <form className="form" onSubmit={submitHandler}>
         <div>
-          <h1>Sign In</h1>
+          <h1 class="mainh1">Sign In</h1>
         </div>
         {loading && <LoadingBox></LoadingBox>}
         {validation && validation !== true && (
@@ -52,6 +52,7 @@ export default function SigninScreen(props) {
         <div>
           <label htmlFor="email">Email address</label>
           <input
+            class="forminput"
             type="email"
             id="email"
             placeholder="Enter email"
@@ -62,6 +63,7 @@ export default function SigninScreen(props) {
         <div>
           <label htmlFor="password">Password</label>
           <input
+            class="forminput"
             type="password"
             id="password"
             placeholder="Enter password"

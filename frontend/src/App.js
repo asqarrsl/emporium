@@ -62,23 +62,24 @@ function App() {
               <i className="fa fa-bars"></i>
             </button>
             <Link className="brand" to="/">
-              amazona
+              Emporium
             </Link>
           </div>
-          <div>
+          <div className="rowsearch2">
             <Route
               render={({ history }) => (
                 <SearchBox history={history}></SearchBox>
               )}
             ></Route>
           </div>
-          <div>
-            <Link to="/cart">
-              Cart
-              {cartItems.length > 0 && (
-                <span className="badge">{cartItems.length}</span>
-              )}
-            </Link>
+          <div className="row">
+            <button class="cartbtn">
+              <Link to="/cart">
+                {cartItems.length > 0 && (
+                  <span className="badge">{cartItems.length}</span>
+                )}
+              </Link>
+            </button>
             {userInfo ? (
               <div className="dropdown">
                 <Link to="#">
@@ -134,13 +135,12 @@ function App() {
                   <li>
                     <Link to="/userlist">Users</Link>
                   </li>
-                  {/* <li>
-                    <Link to="/support">Support</Link>
-                  </li> */}
                 </ul>
               </div>
             )}
+            <i class="profilebtn"></i>
           </div>
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"></link>
         </header>
         <aside className={sidebarIsOpen ? "open" : ""}>
           <ul className="categories">
@@ -251,7 +251,7 @@ function App() {
           <Route path="/" component={HomeScreen} exact></Route>
         </main>
         <footer className="row center">
-          <div>All right reserved</div>{" "}
+          <div>Copyright @ 2021 | Emporium, All right reserved</div>{' '}
         </footer>
       </div>
     </BrowserRouter>
